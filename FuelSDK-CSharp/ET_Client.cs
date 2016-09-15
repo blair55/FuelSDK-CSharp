@@ -42,11 +42,6 @@ namespace FuelSDK
         {
             return MemberwiseClone();
         }
-
-        public override bool IsReadOnly()
-        {
-            return false;
-        }
     }
 
     #endregion
