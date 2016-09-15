@@ -19,7 +19,7 @@ namespace FuelSDK
 {
     #region Configuration
 
-    public class FuelSDKConfigurationSection : ConfigurationSection
+    public class FuelSDKConfigurationSection 
     {
         public string AppSignature
         {
@@ -78,7 +78,7 @@ namespace FuelSDK
         public ET_Client(FuelSDKConfigurationSection config, RefreshState refreshState = null)
         {
             // Get configuration file and set variables
-            configSection = config;
+            this.configSection = config;
             
             if (parameters != null)
             {
