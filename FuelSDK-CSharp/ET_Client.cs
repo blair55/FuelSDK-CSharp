@@ -21,34 +21,23 @@ namespace FuelSDK
 
     public class FuelSDKConfigurationSection : ConfigurationSection
     {
-        [ConfigurationProperty("appSignature", IsRequired = true)]
         public string AppSignature
         {
-            get { return (string)this["appSignature"]; }
-            set { this["appSignature"] = value; }
+            get; set;
         }
 
-        [ConfigurationProperty("clientId", IsRequired = true)]
         public string ClientId
         {
-            get { return (string)this["clientId"]; }
-            set { this["clientId"] = value; }
+            get; set;
         }
 
-        [ConfigurationProperty("clientSecret", IsRequired = true)]
         public string ClientSecret
         {
-            get { return (string)this["clientSecret"]; }
-            set { this["clientSecret"] = value; }
+            get; set;
         }
 
-        [ConfigurationProperty("soapEndPoint", DefaultValue = "https://webservice.s4.exacttarget.com/Service.asmx")]
-        public string SoapEndPoint
-        {
-            get { return (string)this["soapEndPoint"]; }
-            set { this["soapEndPoint"] = value; }
-        }
-
+        public string SoapEndPoint = "https://webservice.s4.exacttarget.com/Service.asmx";
+        
         public object Clone()
         {
             return MemberwiseClone();
@@ -86,13 +75,11 @@ namespace FuelSDK
             public string Stack { get; set; }
         }
 
-        public ET_Client(string jwt)
-            : this(new NameValueCollection { { "jwt", jwt } }, null) { }
-        public ET_Client(NameValueCollection parameters = null, RefreshState refreshState = null)
+        public ET_Client(FuelSDKConfigurationSection config, RefreshState refreshState = null)
         {
             // Get configuration file and set variables
-            configSection = (FuelSDKConfigurationSection)ConfigurationManager.GetSection("fuelSDK");
-            configSection = (configSection != null ? (FuelSDKConfigurationSection)configSection.Clone() : new FuelSDKConfigurationSection());
+            configSection = config;
+            
             if (parameters != null)
             {
                 if (parameters.AllKeys.Contains("appSignature"))
